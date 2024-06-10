@@ -13,30 +13,67 @@
 <body>
 
     <div class="container container-fluid mt-5">
-        <h1 class="mb-4">Usuarios</h1>
-        <table class="table table-primary table-striped">
-            <thead>
-                <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Nombre del usuario</th>
-                    <th scope="col">Descripción</th>
-                    <th scope="col">Acciones</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr v-for="category in categories" :key="category.id">
-                    <th scope="row">1</th>
-                    <td>Mark</td>
-                    <td>Otto</td>
-                    <td>@mdo</td>
-                </tr>
-            </tbody>
-        </table>
+        @if(Session::has('Mensaje'))
+            <div id="alertMensaje" class="alert alert-success" role="alert">
+                {{Session::get('Mensaje')}}
+            </div>
+            <script>
+                setTimeout(function () {
+                    document.getElementById('alertMensaje').style.visibility = 'collapse';
+                }, 3000);
+            </script>
+        @endif 
+
+        <h1 class="shadow p-3 mb-5 rounded bg-primary-subtle">Usuarios</h1>
+        <div class="col-xs12 col-md-6 col-lg-4" style="padding-bottom: 2rem;">
+            <a href="{{'users/create'}}" type="button" class="btn btn-outline-warning">Agregar Usuario</a>
+        </div>
+        <div>
+            <table id="users" class="table table-primary table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Nombre del Usuario</th>
+                        <th scope="col">Apellido del Usuario</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Contraseña</th>
+                        <th scope="col">Rol</th>
+                        <th scope="col">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody class="list">
+                    @foreach($users as $user)
+                        <tr>
+                            <td>{{$loop->iteration}}</td>
+                            <td>{{$user->NombreUsuario}}</td>
+                            <td>{{$user->ApellidoUsuario}}</td>
+                            <td>{{$user->Email}}</td>
+                            <td>{{$user->Password}}</td>
+                            <td>{{$user->NombreRol}}</td>
+                            
+                            <td><a type="button" class="btn btn-outline-primary"
+                                    href="{{url('/users/' . $user->id . '/edit')}}">Editar</a>
+                                <form action="{{url('/users/' . $user->id)}}" method="POST"
+                                    enctype="multipart/form-data">
+                                    {{csrf_field()}}
+                                    {{method_field('DELETE')}}
+                                    <button type="submit" class="btn btn-outline-danger btn-sm"
+                                        onclick="return confirm('¿Seguro que desas borrar al usuario?')">Eliminar</button>
+                                </form>
+
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"></script>
+
+
 </body>
 
 </html>

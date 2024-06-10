@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class AuthorsController extends Controller
 {
@@ -11,7 +12,8 @@ class AuthorsController extends Controller
      */
     public function index()
     {
-        //
+        $authors = DB::SELECT('SELECT * FROM authors_models;');
+        return view('admins.authors.index', array('authors' => $authors));
     }
 
     /**

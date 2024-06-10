@@ -17,6 +17,7 @@ return new class extends Migration {
             $table->date("FechaCreacion");
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users_models');
+            $table->boolean('Estado');
             $table->timestamps();
         });
     }

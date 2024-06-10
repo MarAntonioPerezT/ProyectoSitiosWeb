@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('NombreRol');
             $table->string('Descripcion');
             $table->date('FechaCreacion');
+            $table->boolean('Estado');
             $table->timestamps();
         });
     }

@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string("Descripcion");
             $table->date("FechaCreacion");
             $table->string("UsuarioCreador");
+            $table->boolean('Estado');
             $table->timestamps();
         });
     }

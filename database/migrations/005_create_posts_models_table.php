@@ -17,7 +17,7 @@ return new class extends Migration {
             $table->string('PostImagen');
             $table->date('FecPublicacion');
             $table->date('Fec_creacion');
-            $table->boolean('Estatus');
+            $table->boolean('Estado');
             $table->unsignedBigInteger('label_id');
             $table->foreign('label_id')->references('id')->on('labels_models');
             $table->unsignedBigInteger('categories_id');

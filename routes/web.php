@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CategoriesController;
+use App\Http\Controllers\UsersController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -23,9 +24,7 @@ Route::get('/labels', function () {
     return view('admins.labels.index');
 });
 
-Route::get('/users', function () {
-    return view('admins.users.index');
-});
+Route::resource('/users', UsersController::class);
 
 Route::get('/authors', function () {
     return view('admins.authors.index');

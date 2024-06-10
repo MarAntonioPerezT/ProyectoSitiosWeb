@@ -15,7 +15,8 @@ class CategoriesController extends Controller
     public function index()
     {
         $categories = DB::SELECT("SELECT c.*, u.NombreUsuario, u.ApellidoUsuario
-        FROM categories_models c INNER JOIN users_models u on c.user_id = u.id;");
+        FROM categories_models c INNER JOIN users_models u on c.user_id = u.id
+        WHERE c.estado = 1;");
         return view('admins.categories.index', array('categories' => $categories));
 
 
@@ -24,7 +25,7 @@ class CategoriesController extends Controller
     public function users()
     {
         $users = DB::SELECT("SELECT u.id, u.NombreUsuario, u.ApellidoUsuario
-        FROM users_models u;");
+        FROM users_models u WHERE u.estado = 1;");
         return view('admins.categories.AddCatModel', array('users' => $users));
     }
 
@@ -45,6 +46,7 @@ class CategoriesController extends Controller
         $categories->NombreCategoria = $request['NombreCategoria'];
         $categories->Descripcion = $request['Descripcion'];
         $categories->FechaCreacion = date("Y-m-d H:i:s");
+        $categories->estado = 1;
         $categories->user_id = $request['user_id'];
         $categories->save();
         return redirect('categories')->with('Mensaje', 'Nuevo categoria agregada');
@@ -89,7 +91,9 @@ class CategoriesController extends Controller
     public function destroy(string $id)
     {
         //
-        CategoriesModel::destroy($id);
+        $categories = CategoriesModel::findOrFail($id);
+        $categories->estado = false;
+        $categories->save();
         return redirect('categories')->with('Mensaje', 'Categoria eliminada');
     }
 }
