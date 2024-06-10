@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\RolesModel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class RolesController extends Controller
 {
@@ -11,7 +13,8 @@ class RolesController extends Controller
      */
     public function index()
     {
-        //
+        $roles = DB::SELECT('SELECT * FROM roles_models;');
+        return view('admins.roles.index', array('roles' => $roles));
     }
 
     /**
@@ -19,7 +22,7 @@ class RolesController extends Controller
      */
     public function create()
     {
-        //
+        return view('admins.roles.add');
     }
 
     /**
@@ -27,7 +30,12 @@ class RolesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $roles = new RolesModel();
+        $roles->NombreRol = $request['NombreRol'];
+        $roles->Descripcion = $request['Descripcion'];
+        $roles->Estado = 1;
+        $roles->save();
+        return redirect('roles')->with('Mensaje', 'Nuevo rol agregado');
     }
 
     /**
@@ -43,7 +51,8 @@ class RolesController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $roles = RolesModel::findOrFail($id);
+        return view('admins.roles.edit', array('roles' => $roles));
     }
 
     /**
@@ -51,7 +60,11 @@ class RolesController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $roles = RolesModel::findOrFail($id);
+        $roles->NombreRol = $request['NombreRol'];
+        $roles->Descripcion = $request['Descripcion'];
+        $roles->save();
+        return redirect('roles')->with('Mensaje', 'Rol actualizado');
     }
 
     /**
@@ -59,6 +72,9 @@ class RolesController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $roles = RolesModel::findOrFail($id);
+        $roles->Estado = 0;
+        $roles->save();
+        return redirect('roles')->with('Mensaje', 'Rol eliminado');
     }
 }

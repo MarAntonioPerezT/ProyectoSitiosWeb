@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CategoriesController;
+use App\Http\Controllers\RolesController;
 use App\Http\Controllers\UsersController;
 use Illuminate\Support\Facades\Route;
 
@@ -30,7 +31,6 @@ Route::get('/authors', function () {
     return view('admins.authors.index');
 });
 
-Route::get('/roles', function () {
-    return view('admins.roles.index');
-});
+Route::resource('/roles', RolesController::class);
+
 
