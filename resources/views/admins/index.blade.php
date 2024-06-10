@@ -47,8 +47,7 @@
                     </div>
                     <img src="img/imgPages/post_img.webp" class="card-img-top img-fluid img-thumbnail" alt="img">
                     <div class="card-body">
-                        <p class="card-text">This is a longer card with supporting text below as a natural lead-in to
-                            additional content. This content is a little bit longer.</p>
+                        <p class="card-text">Aquí puedes agregar, editar, consultar y eliminar los posts.</p>
                         <a type="button" class="btn btn-outline-primary" href="/posts">Ver más</a>
                     </div>
                 </div>
@@ -60,8 +59,7 @@
                     </div>
                     <img src="img/imgPages/categories_img.webp" class="card-img-top img-fluid img-thumbnail" alt="img">
                     <div class="card-body">
-                        <p class="card-text">This is a longer card with supporting text below as a natural lead-in to
-                            additional content. This content is a little bit longer.</p>
+                        <p class="card-text">Aquí puedes agregar, editar, consultar y eliminar las categorias.</p>
                         <a type="button" class="btn btn-outline-primary" href="/categories">Ver más</a>
                     </div>
                 </div>
@@ -73,8 +71,7 @@
                     </div>
                     <img src="img/imgPages/etiqueta_img.webp" class="card-img-top img-fluid img-thumbnail" alt="img">
                     <div class="card-body">
-                        <p class="card-text">This is a longer card with supporting text below as a natural lead-in to
-                            additional content.</p>
+                        <p class="card-text">Aquí puedes agregar, editar, consultar y eliminar las etiquetas.</p>
                         <a type="button" class="btn btn-outline-primary" href="/labels">Ver más</a>
                     </div>
                 </div>
@@ -86,8 +83,7 @@
                     </div>
                     <img src="img/imgPages/author_img.webp" class="card-img-top img-fluid img-thumbnail" alt="img">
                     <div class="card-body">
-                        <p class="card-text">This is a longer card with supporting text below as a natural lead-in to
-                            additional content. This content is a little bit longer.</p>
+                        <p class="card-text">Aquí puedes agregar, editar, consultar y eliminar los Autores.</p>
                         <a type="button" class="btn btn-outline-primary" href="/authors">Ver más</a>
                     </div>
                 </div>
@@ -100,8 +96,7 @@
                     <img src="img/imgPages/users_img.webp" class="card-img-top w-auto h-25 img-fluid img-thumbnail"
                         alt="img">
                     <div class="card-body">
-                        <p class="card-text">This is a longer card with supporting text below as a natural lead-in to
-                            additional content. This content is a little bit longer.</p>
+                        <p class="card-text">Aquí puedes agregar, editar, consultar y eliminar los autores.</p>
                         <a type="button" class="btn btn-outline-primary" href="/users">Ver más</a>
                     </div>
                 </div>
@@ -114,8 +109,7 @@
                     <img src="img/imgPages/roles_img.webp" class="card-img-top w-auto h-50 img-fluid img-thumbnail"
                         alt="img">
                     <div class="card-body">
-                        <p class="card-text">This is a longer card with supporting text below as a natural lead-in to
-                            additional content. This content is a little bit longer.</p>
+                        <p class="card-text">Aquí puedes agregar, editar, consultar y eliminar roles.</A></p>
                         <a type="button" class="btn btn-outline-primary" href="/roles">Ver más</a>
                     </div>
                 </div>

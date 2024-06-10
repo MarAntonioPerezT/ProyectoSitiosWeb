@@ -24,9 +24,10 @@
             </script>
         @endif 
 
-        <h1 class="shadow p-3 mb-5 rounded bg-primary-subtle">Usuarios</h1>
+        <h1 class="shadow p-3 mb-5 rounded bg-primary-subtle">Roles</h1>
         <div class="col-xs12 col-md-6 col-lg-4" style="padding-bottom: 2rem;">
             <a href="{{'roles/create'}}" type="button" class="btn btn-outline-warning">Agregar Rol</a>
+            <a href="{{'/'}}" type="button" class="btn btn-outline-secondary">Regresar</a>
         </div>
         <div>
             <table id="roles" class="table table-primary table-striped">
@@ -44,8 +45,8 @@
                         <tr>
                             <td>{{$loop->iteration}}</td>
                             <td>{{$rol->NombreRol}}</td>
-                            <td>{{$user->Descripcion}}</td>
-                            <td>{{$user->FechaCreacion}}</td>
+                            <td>{{$rol->Descripcion}}</td>
+                            <td>{{$rol->FechaCreacion}}</td>
 
                             <td><a type="button" class="btn btn-outline-primary"
                                     href="{{url('/roles/' . $rol->id . '/edit')}}">Editar</a>

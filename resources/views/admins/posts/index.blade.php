@@ -13,30 +13,71 @@
 <body>
 
     <div class="container container-fluid mt-5">
-        <h1 class="mb-4">Posts</h1>
-        <table class="table table-primary table-striped">
-            <thead>
-                <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Nombre de la categoría</th>
-                    <th scope="col">Descripción</th>
-                    <th scope="col">Acciones</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr v-for="category in categories" :key="category.id">
-                    <th scope="row">1</th>
-                    <td>Mark</td>
-                    <td>Otto</td>
-                    <td>@mdo</td>
-                </tr>
-            </tbody>
-        </table>
+        @if(Session::has('Mensaje'))
+            <div id="alertMensaje" class="alert alert-success" role="alert">
+                {{Session::get('Mensaje')}}
+            </div>
+            <script>
+                setTimeout(function () {
+                    document.getElementById('alertMensaje').style.visibility = 'collapse';
+                }, 3000);
+            </script>
+        @endif 
+
+        <h1 class="shadow p-3 mb-5 rounded bg-primary-subtle">Posts</h1>
+        <div class="col-xs12 col-md-6 col-lg-4" style="padding-bottom: 2rem;">
+            <a href="{{'posts/create'}}" type="button" class="btn btn-outline-warning">Agregar Post</a>
+            <a href="{{'/'}}" type="button" class="btn btn-outline-secondary">Regresar</a>
+        </div>
+        <div>
+            <table pl="labels" class="table table-primary table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Título de Entrada</th>
+                        <th scope="col">Contenido</th>
+                        <th scope="col">Imagen</th>
+                        <th scope="col">Fecha de Publicación</th>
+                        <th scope="col">Fecha de Creación</th>
+                        <th scope="col">Etiqueta</th>
+                        <th scope="col">Categoría</th>
+                        <th scope="col">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody class="list">
+                    @foreach($posts as $post)
+                        <tr>
+                            <td>{{$loop->iteration}}</td>
+                            <td>{{$post->TituloEntrada}}</td>
+                            <td>{{$post->PostContenido}}</td>
+                            <td><img src="{{$post->PostImagen}}"
+                                    class="img-fluid rounded float-start mb-4 mb-md-0 w-50 h-25" alt="image"></td>
+                            <td>{{$post->FecPublicacion}}</td>
+                            <td>{{$post->Fec_creacion}}</td>
+                            <td>{{$post->NombreEtiqueta}}</td>
+                            <td>{{$post->NombreCategoria}}</td>
+                            <td><a type="button" class="btn btn-outline-primary"
+                                    href="{{url('/posts/' . $post->id . '/edit')}}">Editar</a>
+                                <form action="{{url('/posts/' . $post->id)}}" method="POST" enctype="multipart/form-data">
+                                    {{csrf_field()}}
+                                    {{method_field('DELETE')}}
+                                    <button type="submit" class="btn btn-outline-danger btn-sm"
+                                        onclick="return confirm('¿Seguro que desas borrar la etiqueta?')">Eliminar</button>
+                                </form>
+
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"></script>
+
+
 </body>
 
 </html>

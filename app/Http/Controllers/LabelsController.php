@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\LabelsModel;
+use App\Models\UsersModel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class LabelsController extends Controller
 {
@@ -11,7 +14,8 @@ class LabelsController extends Controller
      */
     public function index()
     {
-        //
+        $labels = DB::SELECT('SELECT * FROM labels_models l WHERE l.estado = 1 ORDER BY l.id DESC;');
+        return view('admins.labels.index', array('labels' => $labels));
     }
 
     /**
@@ -19,7 +23,7 @@ class LabelsController extends Controller
      */
     public function create()
     {
-        //
+        return view('admins.labels.add');
     }
 
     /**
@@ -27,7 +31,14 @@ class LabelsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $labels = new LabelsModel();
+        $labels->NombreEtiqueta = $request['NombreEtiqueta'];
+        $labels->Descripcion = $request['Descripcion'];
+        $labels->FechaCreacion = date("Y-m-d H:i:s");
+        $labels->estado = 1;
+        $labels->UsuarioCreador = $request['UsuarioCreador'];
+        $labels->save();
+        return redirect('labels')->with('Mensaje', 'Nueva etiqueta agregada');
     }
 
     /**
@@ -43,7 +54,8 @@ class LabelsController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $labels = LabelsModel::findOrFail($id);
+        return view('admins.labels.edit', array('labels' => $labels));
     }
 
     /**
@@ -51,7 +63,11 @@ class LabelsController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $labels = LabelsModel::findOrFail($id);
+        $labels->NombreEtiqueta = $request['NombreEtiqueta'];
+        $labels->Descripcion = $request['Descripcion'];
+        $labels->save();
+        return redirect('labels')->with('Mensaje', 'Etiqueta actualizada');
     }
 
     /**
@@ -59,6 +75,9 @@ class LabelsController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $labels = LabelsModel::findOrFail($id);
+        $labels->estado = false;
+        $labels->save();
+        return redirect('labels')->with('Mensaje', 'Etiqueta eliminada');
     }
 }

@@ -13,7 +13,8 @@ class RolesController extends Controller
      */
     public function index()
     {
-        $roles = DB::SELECT('SELECT * FROM roles_models;');
+    
+        $roles = DB::SELECT('SELECT * FROM roles_models r WHERE r.estado = 1 ORDER BY r.id DESC;');
         return view('admins.roles.index', array('roles' => $roles));
     }
 
@@ -30,11 +31,23 @@ class RolesController extends Controller
      */
     public function store(Request $request)
     {
+        $rol = RolesModel::where('NombreRol', $request['NombreRol'])->first();
+        if ($rol) {
+            // Si el rol existe, actualizar el estado a true
+            $rol->Estado = 1;
+            $rol->save();
+    
+            // Mensaje de actualización
+            return redirect('roles')->with('Mensaje', 'Estado del rol actualizado a true');
+        }
+
         $roles = new RolesModel();
         $roles->NombreRol = $request['NombreRol'];
         $roles->Descripcion = $request['Descripcion'];
+        $roles->FechaCreacion = date("Y-m-d H:i:s");
         $roles->Estado = 1;
         $roles->save();
+        
         return redirect('roles')->with('Mensaje', 'Nuevo rol agregado');
     }
 

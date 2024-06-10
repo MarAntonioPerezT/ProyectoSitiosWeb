@@ -16,7 +16,7 @@ class CategoriesController extends Controller
     {
         $categories = DB::SELECT("SELECT c.*, u.NombreUsuario, u.ApellidoUsuario
         FROM categories_models c INNER JOIN users_models u on c.user_id = u.id
-        WHERE c.estado = 1;");
+        WHERE c.estado = 1 ORDER BY c.id DESC;");
         return view('admins.categories.index', array('categories' => $categories));
 
 
@@ -49,7 +49,7 @@ class CategoriesController extends Controller
         $categories->estado = 1;
         $categories->user_id = $request['user_id'];
         $categories->save();
-        return redirect('categories')->with('Mensaje', 'Nuevo categoria agregada');
+        return redirect('categories')->with('Mensaje', 'Nueva categoria agregada');
     }
 
     /**

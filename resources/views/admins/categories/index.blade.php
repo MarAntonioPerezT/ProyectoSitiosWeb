@@ -27,6 +27,7 @@
         <h1 class="shadow p-3 mb-5 rounded bg-primary-subtle">Categorías</h1>
         <div class="col-xs12 col-md-6 col-lg-4" style="padding-bottom: 2rem;">
             <a href="{{'categories/create'}}" type="button" class="btn btn-outline-warning">Agregar Categoría</a>
+            <a href="{{'/'}}" type="button" class="btn btn-outline-secondary">Regresar</a>
         </div>
         <div>
             <table id="categories" class="table table-primary table-striped">

@@ -11,7 +11,6 @@
 </head>
 
 <body>
-
     <div class="container container-fluid mt-5">
         @if(Session::has('Mensaje'))
             <div id="alertMensaje" class="alert alert-success" role="alert">
@@ -27,6 +26,7 @@
         <h1 class="shadow p-3 mb-5 rounded bg-primary-subtle">Usuarios</h1>
         <div class="col-xs12 col-md-6 col-lg-4" style="padding-bottom: 2rem;">
             <a href="{{'users/create'}}" type="button" class="btn btn-outline-warning">Agregar Usuario</a>
+            <a href="{{'/'}}" type="button" class="btn btn-outline-secondary">Regresar</a>
         </div>
         <div>
             <table id="users" class="table table-primary table-striped">
@@ -58,7 +58,7 @@
                                     {{csrf_field()}}
                                     {{method_field('DELETE')}}
                                     <button type="submit" class="btn btn-outline-danger btn-sm"
-                                        onclick="return confirm('¿Seguro que desas borrar al usuario?')">Eliminar</button>
+                                        onclick="return confirm('¿Seguro que desas borrar el autor?')">Eliminar</button>
                                 </form>
 
                             </td>
@@ -72,8 +72,6 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"></script>
-
-
 </body>
 
 </html>

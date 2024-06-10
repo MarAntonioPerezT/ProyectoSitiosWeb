@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\RolesModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\UsersModel;
@@ -14,7 +15,9 @@ class UsersController extends Controller
      */
     public function index()
     {
-        $users = DB::SELECT('SELECT * FROM users_models u INNER JOIN roles_models r ON u.rol_id = r.id;');
+        $users = DB::SELECT('SELECT u.*, r.NombreRol
+        FROM users_models u INNER JOIN roles_models r ON u.rol_id = r.id
+        WHERE u.estado = 1;');
         return view('admins.users.index', array('users' => $users));
     }
 
@@ -23,7 +26,7 @@ class UsersController extends Controller
      */
     public function create()
     {
-        $roles = DB::SELECT('SELECT * FROM users_models u INNER JOIN roles_models r ON u.rol_id = r.id;');
+        $roles = DB::SELECT('SELECT * FROM roles_models r WHERE r.estado = 1;');
         return view('admins.users.add', array('roles' => $roles));
     }
 
@@ -41,12 +44,15 @@ class UsersController extends Controller
         $users->rol_id = $request['rol_id'];
         $users->save();
 
-        if ($users->rol->NombreAutor === 'Autor') {
+        $roles = RolesModel::findOrFail($request['rol_id']);
+
+        if ($roles->NombreRol === 'Autor') {
             $authors = new AuthorsModel();
             $authors->NombreAutor = $request['NombreUsuario'];
             $authors->ApellidoAutor = $request['ApellidoUsuario'];
             $authors->Email = $request['Email'];
             $authors->Phone = $request['Password'];
+            $authors->Estado = 1;
             $authors->user_id = $users->id;
             $authors->save();
         }
@@ -70,7 +76,8 @@ class UsersController extends Controller
     public function edit(string $id)
     {
         $users = UsersModel::findOrFail($id);
-        return view('admins.users.edit', array('users' => $users));
+        $roles = RolesModel::where('Estado', 1)->get();
+        return view('users', compact('users', 'roles'));
     }
 
     /**
@@ -92,12 +99,22 @@ class UsersController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
-    {
-        $users = UsersModel::findOrFail($id);
-        $authors = AuthorsModel::findOrFail($users->id);
-        $authors->Estado = 0;
-        $users->Estado = 0;
-        return redirect('users')->with('Mensaje', 'Usuario eliminado');
+    public function destroy($id)
+{
+    $user = UsersModel::findOrFail($id);
+    
+    // Actualizar el estado del autor si existe
+    $author = AuthorsModel::where('user_id', $user->id)->first();
+    if ($author) {
+        $author->Estado = 0;
+        $author->save();  // Guardar los cambios en la base de datos
     }
+
+    // Actualizar el estado del usuario
+    $user->Estado = 0;
+    $user->save();  // Guardar los cambios en la base de datos
+
+    return redirect('users')->with('Mensaje', 'Usuario eliminado');
+}
+
 }
