@@ -9,7 +9,6 @@
                 <p id="postContent"></p>
                 <p><small class="text-body-secondary" id="postDate"></small></p>
                 <p><small class="text-body-secondary" id="postCreacion"></small></p>
-                <p><small class="text-body-secondary" id="postAuthor"></small></p>
                 <p><small class="text-body-secondary" id="postCategory"></small></p>
                 <p><small class="text-body-secondary" id="postTags"></small></p>
             </div>

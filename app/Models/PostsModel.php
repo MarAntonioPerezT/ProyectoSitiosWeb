@@ -18,4 +18,9 @@ class PostsModel extends Model
     {
         return $this->belongsTo(LabelsModel::class, 'label_id');
     }
+
+    public function authors()
+    {
+        return $this->belongsTo(AuthorsModel::class, 'author_id');
+    }
 }

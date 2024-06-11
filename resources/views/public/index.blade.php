@@ -33,8 +33,8 @@
                     <div class="card border-warning h-100" data-title="{{ $post->TituloEntrada }}"
                         data-image="{{ $post->PostImagen }}" data-content="{{ $post->PostContenido }}"
                         data-date="{{ $post->FecPublicacion }}" data-creacion="{{ $post->Fec_creacion }}"
-                        data-author="{{ $post->Autor }}" data-category="{{ $post->Categoria }}"
-                        data-tags="{{ $post->Etiquetas }}">
+                        data-category="{{ $post->categories->NombreCategoria }}"
+                        data-tags="{{ $post->labels->NombreEtiqueta }}">
                         <div class="card-header border-warning">
                             <h3 class="card-title">
                                 <div class="card-header border-warning">{{$post->TituloEntrada}}
@@ -72,7 +72,6 @@
                 var content = $(this).data('content');
                 var date = $(this).data('date');
                 var creacion = $(this).data('creacion');
-                var author = $(this).data('author');
                 var category = $(this).data('category');
                 var tags = $(this).data('tags');
 
@@ -81,7 +80,6 @@
                 $('#postContent').text(content);
                 $('#postDate').text('Fecha de publicación: ' + date);
                 $('#postCreacion').text('Fecha de creación: ' + creacion);
-                $('#postAuthor').text('Autor: ' + author);
                 $('#postCategory').text('Categoría: ' + category);
                 $('#postTags').text('Etiquetas: ' + tags);
 
